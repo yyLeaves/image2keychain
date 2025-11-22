@@ -57,6 +57,8 @@ VALIDATION CHECKLIST:
 ☐ Is the viewing angle frontal?
 
 Generate the extraction image meeting all specifications above."""
+    SILHOUETTE_TEXT_PROMPT = """You are an expert graphic designer specializing in clean, vector-style silhouettes. Your task is to analyze a provided silhouette image with red markup and generate a revised, **pure black and white** version that incorporates all requested changes.
+**USER'S INSTRUCTION**: "{user_instruction}"""
 
     SILHOUETTE_EDIT_PROMPT = """You are an expert graphic designer specializing in clean, vector-style silhouettes. Your task is to analyze a provided silhouette image with red markup and generate a revised, **pure black and white** version that incorporates all requested changes.
 

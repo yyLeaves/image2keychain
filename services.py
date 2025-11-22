@@ -136,17 +136,29 @@ class ImageService:
             print(f"Error generating silhouette: {e}")
             raise e
 
-    def edit_silhouette(self, image_path: str, model="gpt-image-1", instructions: str="") -> str:
+    def edit_silhouette(self, image_path: str="", model="gpt-image-1", instructions: str="") -> str:
         """Edits a silhouette based on red marks and instructions."""
-        combined_prompt = PROMPTS.SILHOUETTE_EDIT_PROMPT.format(user_instruction=instructions)
+
+        if not image_path:
+            combined_prompt = PROMPTS.SILHOUETTE_TEXT_PROMPT.format(user_instruction=instructions)
+        else:
+            combined_prompt = PROMPTS.SILHOUETTE_EDIT_PROMPT.format(user_instruction=instructions)
         
         try:
-            result = client.images.edit(
-                model="gpt-image-1",
-                image=open(image_path, "rb"),
-                prompt=combined_prompt,
-                n=1,
-            )
+            if not image_path:
+                result = client.images.edit(
+                    model="gpt-image-1",
+                    image=open(image_path, "rb"),
+                    prompt=combined_prompt,
+                    n=1,
+                )
+            else:
+                result = client.images.edit(
+                    model=model,
+                    # image=open(image_path, "rb"),
+                    prompt=combined_prompt,
+                    n=1,
+                )
             
             filename = os.path.basename(image_path).split('.')[0] + '_updated.png'
             output_path = os.path.join(self.processed_dir, filename)
