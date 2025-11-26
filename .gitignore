@@ -2,3 +2,5 @@
 __pycache__/
 demo.ipynb
 .DS_Store
+*.obj
+*.stl
